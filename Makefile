@@ -7,8 +7,11 @@ LDFLAGS		= -lpng
 solve: main.o
 	${CCC} ${CCFLAGS} -o solve main.o ${LDFLAGS}
 
-main.o: main.cc
+main.o: Maze.h main.cc
 	${CCC} ${CCFLAGS} ${INCFLAGS} -c main.cc
+
+maze.o: Maze.h
+	${CCC} ${CCFLAGS} ${INCFLAGS} -c Maze.h
 
 clean:
 	rm solve *.o

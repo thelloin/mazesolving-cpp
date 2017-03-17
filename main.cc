@@ -1,13 +1,24 @@
 #include <iostream>
 
-//#include <boost/gil/gil_all.hpp>
 #include <boost/gil/extension/io/png_io.hpp>
-//#include <boost/gil/extension/io/png_dynamic_io.hpp>
-//#include <boost/mpl/vector.hpp>
-//#include <boost/gil/extension/io/jpeg_io.hpp>
+
+#include "Maze.h"
 
 using namespace std;
 namespace gil = boost::gil;
+
+void solve(char* ipath, char* opath)
+{
+    cout << "Reading image...\n";
+    gil::rgb8_image_t img;
+    gil::png_read_and_convert_image(ipath, img);
+
+    cout << "Read complete, got an image " << img.width()
+	 << " by " << img.height() << " pixels\n";
+
+    Maze maze{&img};
+
+}
 
 int main(int argc, char* argv[])
 {
@@ -16,28 +27,27 @@ int main(int argc, char* argv[])
 	cerr << "Usage is: " << argv[0] << " <infile> <outfile>\n";
 	return 1;
     }
-    /*typedef boost::mpl::vector<
-	boost::gil::gray8_image_t,
-	boost::gil::bgr8_image_t,
-	boost::gil::argb8_image_t,
-        boost::gil::rgb8_image_t,
-        boost::gil::rgb8_planar_image_t, 
-        boost::gil::cmyk8_image_t,
-        boost::gil::cmyk8_planar_image_t, 
-        boost::gil::rgba8_image_t, 
-        boost::gil::rgba8_planar_image_t
-     > my_img_types;
-    cout << "We are here" << endl;
-    boost::gil::any_image<my_img_types> input;
-    boost::gil::png_read_image(argv[1], input);
-    cout << "We are here1" << endl;*/
-    //gil::rgb8_image_t img;
-    gil::rgb8_image_t img;
-    cout << "trying to read in file: " << argv[1] << endl;
-    gil::png_read_and_convert_image(argv[1], img);
-    //gil::png_read_and_convert_image(argv[1], img);
-    cout << "Read complete, got an image " << img.width()
-	 << " by " << img.height() << " pixels\n";
+    solve(argv[1], argv[2]);
 
+    /*gil::rgb8_pixel_t px;
+    for(int i = 0; i < img.height(); i++)
+    {
+	for(int j = 0; j < img.width(); j++)
+	{
+	    px = *const_view(img).at(j, i);
+	    cout << "The pixel at " << i << ',' << j << " is "
+		 << (int)px[0] << ','
+		 << (int)px[1] << ',' << (int)px[2] << '\n';
+	}
+	}*/
+    /*gil::rgb8_pixel_t px1 = *const_view(img).at(0, 0);
+    cout << "The pixel at 0,0 is "
+	 << (int)px1[0] << ','
+	 << (int)px1[1] << ',' << (int)px1[2] << '\n';
+    gil::rgb8_pixel_t px2 = *const_view(img).at(0, 3);
+    cout << "The pixel at 0,3 is "
+	 << (int)px2[0] << ','
+	 << (int)px2[1] << ',' << (int)px2[2] << '\n';
+    */
     return 0;
 }
