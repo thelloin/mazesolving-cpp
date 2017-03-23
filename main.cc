@@ -16,6 +16,19 @@ void solve(char* ipath, char* opath)
     cout << "Read complete, got an image " << img.width()
 	 << " by " << img.height() << " pixels\n";
 
+    gil::rgb8_pixel_t px;
+    for(int i = 0; i < img.height(); i++)
+    {
+	for(int j = 0; j < img.width(); j++)
+	{
+	    px = *const_view(img).at(j, i);
+	    cout << (int)px[0] << '\t';
+	}
+	cout << '\n';
+    }
+
+
+    // TODO: Time this and display node count in maze
     Maze maze{&img};
 
 }
