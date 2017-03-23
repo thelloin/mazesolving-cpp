@@ -4,14 +4,14 @@ CCFLAGS		= -std=c++14
 INCFLAGS	= -I ~/dev/boost_1_63_0
 LDFLAGS		= -lpng
 
-solve: main.o
-	${CCC} ${CCFLAGS} -o solve main.o ${LDFLAGS}
+solve: main.o Maze.o
+	${CCC} ${CCFLAGS} -o solve main.o Maze.o ${LDFLAGS}
 
 main.o: Maze.h main.cc
 	${CCC} ${CCFLAGS} ${INCFLAGS} -c main.cc
 
-maze.o: Maze.h
-	${CCC} ${CCFLAGS} ${INCFLAGS} -c Maze.h
+Maze.o: Maze.h Maze.cpp
+	${CCC} ${CCFLAGS} ${INCFLAGS} -c Maze.cpp
 
 clean:
 	rm solve *.o

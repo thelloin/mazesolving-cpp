@@ -1,7 +1,6 @@
 #ifndef MAZE_H
 #define MAZE_H
 
-#include <iostream>
 #include <boost/gil/extension/io/png_io.hpp>
 #include <boost/multi_array.hpp>
 
@@ -12,62 +11,18 @@ class Maze
 {
 public:
     struct Node {
-	Node() {
-	    position = -1;
-	}
-	Node(int pos) {
-	    position = pos;
-	}
-	int position;
+	Node() : xpos(-1), ypos(-1) {}
+	Node(int x, int y) : xpos(x), ypos(y)  {}
+
+	// TODO: use a pair instead of xpos and ypos
+	int xpos;
+	int ypos;
 	Node* Neighbours[4];
     };
 
-    Maze(boost::gil::rgb8_image_t* p_img) : width((int)p_img->width()),
-					    height((int)p_img->height()),
-					    maze(boost::extents[width][height]),
-	                                    maze_visited(boost::extents[width][height]),
-					    start(-1),
-					    end(-1) {
-	std::cout << "In maze constructor" << std::endl;
-	std::cout << p_img->width() << ',' << p_img->height() << std::endl;
-
-
-	boost::gil::rgb8_pixel_t px;
-	for (int i = 0; i < p_img->height(); i++)
-	{
-	    for (int j = 0; j < p_img->width(); j++)
-	    {
-		px = *const_view(*p_img).at(j, i);
-		if (px[0] == 255)
-		{
-		    maze[j][i] = true;
-		}
-	    }
-	}
-	
-	
-	for (size_t y = 0; y < maze.shape()[1]; y++)
-	{
-	    for ( size_t x = 0; x < maze.shape()[0]; x++)
-	    {
-		std::cout << maze[x][y] << '\t';
-	    }
-	    std::cout << '\n';
-	}
-
-	// Top row buffer
-	Node topnodes[width];
-	for (int x = 1; x < width-1; x++)
-	{
-	    if (maze[x][0] == true)
-	    {
-		std::cout << "Found top pos at: " << x << '\n';
-	    }
-	}
-	
-    }
+    Maze(boost::gil::rgb8_image_t* p_img);
+    
 private:
-    //boost::gil::rgb8_image_t* img;
     int width{};
     int height{};
     array_type maze;
