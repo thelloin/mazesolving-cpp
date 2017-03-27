@@ -30,6 +30,7 @@ void solve(char* ipath, char* opath)
 
     // TODO: Time this and display node count in maze
     Maze maze{&img};
+    cout << "Found " << maze.getCount() << " nodes in maze" << endl;
 
 }
 
