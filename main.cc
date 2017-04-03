@@ -3,6 +3,7 @@
 #include <boost/gil/extension/io/png_io.hpp>
 
 #include "Maze.h"
+#include "Solvers.h"
 
 using namespace std;
 namespace gil = boost::gil;
@@ -16,6 +17,7 @@ void solve(char* ipath, char* opath)
     cout << "Read complete, got an image " << img.width()
 	 << " by " << img.height() << " pixels\n";
 
+    /*
     gil::rgb8_pixel_t px;
     for(int i = 0; i < img.height(); i++)
     {
@@ -26,11 +28,14 @@ void solve(char* ipath, char* opath)
 	}
 	cout << '\n';
     }
+    */
 
 
     // TODO: Time this and display node count in maze
     Maze maze{&img};
     cout << "Found " << maze.getCount() << " nodes in maze" << endl;
+
+    solvers::breadthfirst(maze);
 
 }
 

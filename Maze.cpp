@@ -9,8 +9,8 @@ Maze::Maze(boost::gil::rgb8_image_t* p_img) : width((int)p_img->width()),
 					      maze_visited(boost::extents[width][height]),
 					      start(new Node),
 					      end(new Node) {
-    std::cout << "In maze constructor" << std::endl;
-    std::cout << p_img->width() << ',' << p_img->height() << std::endl;
+    //std::cout << "In maze constructor" << std::endl;
+    //std::cout << p_img->width() << ',' << p_img->height() << std::endl;
 
 
     /*
@@ -29,6 +29,7 @@ Maze::Maze(boost::gil::rgb8_image_t* p_img) : width((int)p_img->width()),
 	}
     }
 
+    /*
     // Print the bool array, for testing
     for (size_t y = 0; y < maze.shape()[1]; y++)
     {
@@ -38,6 +39,7 @@ Maze::Maze(boost::gil::rgb8_image_t* p_img) : width((int)p_img->width()),
 	}
 	std::cout << '\n';
     }
+    */
 
     // Top row buffer
     Node_ptr topNodes[width];
@@ -114,7 +116,7 @@ Maze::Maze(boost::gil::rgb8_image_t* p_img) : width((int)p_img->width()),
 		    // Create node only if in dead end
 		    if (maze[x][y-1] == false || maze[x][y-1] == false)
 		    {
-			std::cout << "Found a dead end at (" << x << ',' << y << ")\n";
+			//std::cout << "Found a dead end at (" << x << ',' << y << ")\n";
 			n->xpos = x;
 			n->ypos = y;
 		    }
